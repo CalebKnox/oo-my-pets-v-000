@@ -1,15 +1,14 @@
 class Owner
-  # code goes here
-  attr_reader :species
   attr_accessor :name, :pets
+  attr_reader :species
 
   def initialize(species)
     @species = species
     @@all << self
-    @pets = {:fishes => [], :dogs => [], :cats => []}
+    @pets = {fishes: [], dogs: [], cats: []}
   end
 
-  @@all = []
+  @@all  = []
 
   def self.all
     @@all
@@ -20,70 +19,51 @@ class Owner
   end
 
   def self.count
-    self.all.size
+    self.all.count
   end
 
   def say_species
-    "I am a #{@species}."
+    "I am a #{species}."
   end
 
   def buy_fish(name)
-    new_fish = Fish.new(name)
-    @pets[:fishes] << new_fish
+    fish = Fish.new(name)
+    self.pets[:fishes] << fish
+    fish
   end
 
   def buy_cat(name)
-    new_cat = Cat.new(name)
-    @pets[:cats] << new_cat
+    cat = Cat.new(name)
+    self.pets[:cats] << cat
+    cat
   end
 
   def buy_dog(name)
-    new_dog = Dog.new(name)
-    @pets[:dogs] << new_dog
+    dog = Dog.new(name)
+    self.pets[:dogs] << dog
+    dog
   end
 
   def walk_dogs
-    @pets[:dogs].each do |dog|
-      dog.mood = "happy"
-    end
+    self.pets[:dogs].each {|dog| dog.mood = "happy"}
   end
 
   def play_with_cats
-    @pets[:cats].each do |cat|
-      cat.mood = "happy"
-    end
+    self.pets[:cats].each {|cat| cat.mood = "happy"}
   end
 
   def feed_fish
-    @pets[:fishes].each do |fish|
-      fish.mood = "happy"
-    end
+    self.pets[:fishes].each {|fish| fish.mood = "happy"}
   end
 
   def sell_pets
-    @pets.each do |animal, individual|
-      individual.each do |animal|
-        animal.mood = 'nervous'
-      end
+    self.pets.each do |type, pet|
+      pet.each {|pet| pet.mood = "nervous"}
     end
-    @pets.clear
+    self.pets.clear
   end
 
   def list_pets
-    output = nil
-    output = "I have #{@pets[:fishes].size} fish,"
-    output += " #{@pets[:dogs].size} dog(s), "
-    output += "and #{@pets[:cats].size} cat(s)."
-    output
+    "I have #{self.pets[:fishes].size} fish, #{self.pets[:dogs].size} dog(s), and #{self.pets[:cats].size} cat(s)."  
   end
 end
-
-
-
-
-
-
-
-
-
-
